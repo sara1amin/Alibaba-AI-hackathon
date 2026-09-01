@@ -1,0 +1,66 @@
+name: Deploy dashboard to GitHub Pages
+
+on:
+  push:
+    branches: [claude/design-doc-review-7udzub, main]
+  # Lets you redeploy from the Actions tab without pushing a commit.
+  workflow_dispatch:
+
+# Read the repo, write the Pages artifact, mint the deploy token.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race. In-flight runs finish rather than being cancelled,
+# so a half-published site is not left behind.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v5
+        with:
+          # Turns Pages on for the repo if it is not enabled yet.
+          enablement: true
+
+      - name: Build static export
+        # A project site is served from /<repo>, so the app has to be built
+        # knowing its own sub-path. Taken from the repo name, never hard-coded.
+        env:
+          NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+        run: npm run build
+
+      - name: Disable Jekyll
+        # Without this, Pages' Jekyll pass drops every path starting with an
+        # underscore — which is all of Next's `_next/` bundle.
+        run: touch out/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -18,7 +18,9 @@ Your voice supplies what the screen cannot — why it matters.
 ## Before you start
 
 - [ ] Browser at **1440×900 or larger**, zoom 100%, full screen (F11).
-- [ ] **Dark theme** (the default). Confirm the header shows a moon icon.
+- [ ] **Pick a theme and stay in it.** Light is the default and reads better on
+      a bright projector; dark reads better in a dim room. The header button is
+      labelled with the mode it switches to.
 - [ ] Open `/` and hard-refresh once. Leave it on the overview.
 - [ ] Second tab already on `/analysis/PG-1041` as a hot spare.
 - [ ] Check the mode pill, top right. **Live** (green) or **Replay** (grey) — either

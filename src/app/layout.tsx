@@ -13,20 +13,24 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#0a0a0b" },
-    { media: "(prefers-color-scheme: light)", color: "#f5f5f5" },
-  ],
+  themeColor: "#f5f5f5",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
-      data-theme="dark"
+      data-theme="light"
       suppressHydrationWarning
       className={`${GeistSans.variable} ${GeistMono.variable}`}
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("pg.theme");if(t==="dark"||t==="light"){document.documentElement.setAttribute("data-theme",t)}}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body className="min-h-screen font-sans text-body antialiased">
         <ThemeProvider>
           <ModeProvider>

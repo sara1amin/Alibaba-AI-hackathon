@@ -10,10 +10,12 @@ and each is listed here so a reviewer can argue with it.
 
 ---
 
-## 1. A dark theme, and dark is the default
+## 1. A dark theme, available from a light default
 
-`DESIGN.md` specifies light only. A CISO-facing tool is used in a dark room, on
-a projector, next to a terminal — and this is being demoed on a stage.
+`DESIGN.md` specifies light only, and **light is what the app opens in** — the
+spec's palette, unmodified. But a CISO-facing tool also gets used in a dark
+room, on a projector, next to a terminal, so dark is one labelled click away in
+the header.
 
 The dark palette is derived by inverting the stack's *logic*, not its hex codes:
 canvas darkest, card brightest, one hairline that never disappears at either end.
@@ -28,8 +30,10 @@ canvas darkest, card brightest, one hairline that never disappears at either end
 | Ink | `#0a0a0a` | `#fafafa` |
 | Mid | `#737373` | `#8b8b93` |
 
-Light mode is the spec's palette, unmodified. Toggle in the header; the choice
-persists per browser.
+The toggle is labelled with the mode it switches *to*, not an unexplained icon.
+The choice persists per browser, and a small pre-paint script in the layout
+applies a stored preference before first paint so a dark-mode user never sees a
+light flash on navigation.
 
 ---
 

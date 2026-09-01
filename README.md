@@ -6,6 +6,8 @@ what it cannot establish.
 
 Built for the Alibaba Cloud AI Hackathon Pakistan 2026.
 
+**Live:** https://sara1amin.github.io/Alibaba-AI-hackathon/
+
 > The demo script — what to say and click, second by second — is in
 > **[DEMO-SCRIPT.md](./DEMO-SCRIPT.md)**.
 > The design system and its deviations are in **[DESIGN-NOTES.md](./DESIGN-NOTES.md)**.
@@ -56,6 +58,9 @@ impossible to trust.
 | `/trend` | Two weeks of pipeline health with the narrative markers behind each move. |
 
 `←` / `→` walk the three outcomes. `⌘⇧R` / `Ctrl+Shift+R` toggles live/replay.
+
+Opens in **light** — `DESIGN.md`'s palette, unmodified. The header button
+switches to dark and the choice persists per browser.
 
 ---
 
@@ -149,6 +154,36 @@ response and replace `src/data/snapshot.ts` with it. The timings come along in
 the payload.
 
 ---
+
+## Deploying
+
+The site is a **static export** — no server, no runtime data fetching that has
+to succeed. `.github/workflows/deploy.yml` builds it and publishes to GitHub
+Pages on every push to the default branch, and can be re-run by hand from the
+Actions tab.
+
+One setting has to be right, once:
+
+> **Settings → Pages → Build and deployment → Source: GitHub Actions**
+
+The workflow passes `enablement: true` so it will try to turn Pages on itself,
+but that only works if the repository allows it — check the setting if the first
+run fails at the *Configure Pages* step.
+
+A project site is served from `/<repo>`, not the domain root, so the app is
+built with `NEXT_PUBLIC_BASE_PATH` set to the repository name. The workflow
+takes it from `actions/configure-pages` rather than hard-coding it, so renaming
+the repo does not break the build. Locally the variable is unset and the app
+serves from `/`.
+
+To reproduce the exact Pages build:
+
+```bash
+NEXT_PUBLIC_BASE_PATH=/Alibaba-AI-hackathon npm run build   # writes ./out
+```
+
+`out/.nojekyll` is required — without it Pages runs Jekyll, which drops every
+path beginning with an underscore, which is all of Next's `_next/` bundle.
 
 ## Stack
 

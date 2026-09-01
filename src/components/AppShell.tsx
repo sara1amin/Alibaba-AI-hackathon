@@ -41,7 +41,8 @@ function ThemeToggle() {
       type="button"
       onClick={toggle}
       aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
-      className="flex h-8 w-8 items-center justify-center rounded-control border border-hairline text-mid transition-colors hover:text-ink"
+      title={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+      className="flex h-8 items-center gap-1.5 rounded-control border border-hairline px-2.5 text-mid transition-colors hover:border-hairline-strong hover:text-ink"
     >
       {theme === "dark" ? (
         <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden>
@@ -55,6 +56,9 @@ function ThemeToggle() {
             fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" />
         </svg>
       )}
+      <span className="hidden text-caption font-medium tracking-normal sm:inline">
+        {theme === "dark" ? "Light" : "Dark"}
+      </span>
     </button>
   );
 }

@@ -9,13 +9,16 @@ const ThemeCtx = React.createContext<{
   toggle: () => void;
   /** Bumps whenever the theme changes, so token readers can re-sample. */
   epoch: number;
-}>({ theme: "dark", toggle: () => {}, epoch: 0 });
+}>({ theme: "light", toggle: () => {}, epoch: 0 });
 
 const KEY = "pg.theme";
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  // Dark is the default: this is a security console, and the demo room is dark.
-  const [theme, setTheme] = React.useState<Theme>("dark");
+  // Light is the default — DESIGN.md's palette, unmodified. Dark is one click
+  // away for the demo room. The pre-paint script in layout.tsx applies a stored
+  // preference before first paint, so this initial value is only ever used by
+  // a first-time visitor.
+  const [theme, setTheme] = React.useState<Theme>("light");
   const [epoch, setEpoch] = React.useState(0);
 
   React.useEffect(() => {
@@ -23,7 +26,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       const stored = window.localStorage.getItem(KEY) as Theme | null;
       if (stored === "light" || stored === "dark") setTheme(stored);
     } catch {
-      /* private mode / blocked storage — the default is fine */
+      /* private mode / blocked storage — the light default is fine */
     }
   }, []);
 
@@ -46,6 +49,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 }
 
 export const useTheme = () => React.useContext(ThemeCtx);
+export const THEME_KEY = KEY;
 
 /**
  * Recharts sets colours as SVG presentation attributes, which do not resolve
