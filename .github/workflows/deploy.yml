@@ -35,10 +35,12 @@ jobs:
       - name: Configure Pages
         id: pages
         uses: actions/configure-pages@v5
+        # Best-effort. This step tries to switch Pages on, which the workflow
+        # token is often not permitted to do, and nothing below needs its
+        # output. Letting it fail the job would mean no build and no artifact
+        # over a setting that is flipped once by hand — so it does not block.
+        continue-on-error: true
         with:
-          # Tries to switch Pages on. Whether this succeeds depends on what the
-          # calling token is allowed to do, so the build below does not rely on
-          # its output — see the base-path note there.
           enablement: true
 
       - name: Build static export
