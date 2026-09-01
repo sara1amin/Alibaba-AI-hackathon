@@ -21,15 +21,18 @@ Your voice supplies what the screen cannot — why it matters.
 - [ ] **Pick a theme and stay in it.** Light is the default and reads better on
       a bright projector; dark reads better in a dim room. The header button is
       labelled with the mode it switches to.
-- [ ] Open `/` and hard-refresh once. Leave it on the overview.
-- [ ] Second tab already on `/analysis/PG-1041` as a hot spare.
+- [ ] **Sign in once before the pitch** and complete onboarding, so the demo does
+      not spend 40 of its 180 seconds on a scan animation. Land on
+      `/app/repos/checkout-api` and leave it there.
+- [ ] Open `/` in a **second tab** — you open on the landing page, then switch.
+- [ ] Third tab on `/app/analysis/PG-1041` as a hot spare.
 - [ ] Check the mode pill, top right. **Live** (green) or **Replay** (grey) — either
       is fine, but *know which one you are in before you start talking*.
 - [ ] Close Slack, email, notifications. Do not screen-share a second monitor.
 
 ---
 
-## 0:00 – 0:22 · The problem (overview page, no clicking)
+## 0:00 – 0:22 · The problem (landing page, then switch to the app)
 
 > **SAY:** "Every CI pipeline runs arbitrary code with production credentials.
 > Most teams have never audited theirs, and the tools that exist flag two
@@ -40,8 +43,9 @@ Your voice supplies what the screen cannot — why it matters.
 > "PipelineGuard decides what to do about what it finds. One commit, three
 > findings, three different answers."
 
-**DO:** Nothing. Let them read the three cards. Point at the screen with your
-hand, not the cursor.
+**DO:** Nothing for the first sentence — the landing page headline is doing the
+work. Then **switch to the app tab** (`/app/repos/checkout-api`) and let them
+read the three outcome cards. Point with your hand, not the cursor.
 
 > **SAY:** "Same agent, same seventy-percent threshold. It fixed one, escalated
 > one, refused the third. Here's why."
@@ -50,7 +54,7 @@ hand, not the cursor.
 
 ---
 
-## 0:22 – 1:00 · Outcome 1 — it acted (`/analysis/PG-1041`)
+## 0:22 – 1:00 · Outcome 1 — it acted (`/app/analysis/PG-1041`)
 
 The reasoning chain streams in on its own. **Do not click anything while it
 streams** — the streaming is the point.
@@ -80,7 +84,7 @@ streams** — the streaming is the point.
 
 ---
 
-## 1:00 – 1:48 · Outcome 2 — it escalated (`/analysis/PG-1042`)
+## 1:00 – 1:48 · Outcome 2 — it escalated (`/app/analysis/PG-1042`)
 
 > **SAY:** "Same run, worse finding — external contributors' code running with
 > the repo's secrets inherited. It traced the graph to a live Stripe key."
@@ -104,7 +108,7 @@ streams** — the streaming is the point.
 
 ---
 
-## 1:48 – 2:32 · Outcome 3 — it refused (`/analysis/PG-1043`) ⭐
+## 1:48 – 2:32 · Outcome 3 — it refused (`/app/analysis/PG-1043`) ⭐
 
 **This is the moment the demo is built around. Slow down.**
 
@@ -138,12 +142,13 @@ the dashed threshold.
 
 ---
 
-## 2:32 – 2:55 · It compounds (`/trend`)
+## 2:32 – 2:55 · It compounds (`/app/trend`)
 
 > **SAY:** "Two weeks on one repo. Risk down from seventy-eight to twenty-seven,
 > and its autonomous share grew as it earned it."
 
-**DO:** Point at the **day-7 bump** in the line.
+**DO:** If a judge glances at the sidebar, note in passing: "five repositories
+connected — this one is the deep dive." Then point at the **day-7 bump**.
 
 > **SAY:** "That bump is an upgrade that reintroduced two problems. Caught the
 > same day. Nothing has reached production since."
@@ -178,7 +183,7 @@ Other recoveries:
 |---|---|
 | Reasoning already finished streaming | Click **Replay reasoning** at the bottom |
 | Wrong page / lost | `←` `→` move through the three outcomes |
-| Browser wedged | Second tab is already on `/analysis/PG-1041` |
+| Browser wedged | Second tab is already on `/app/analysis/PG-1041` |
 | Running long at 2:00 | Skip the trend page, go straight to the close |
 
 ---

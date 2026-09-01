@@ -51,16 +51,39 @@ impossible to trust.
 
 ## Screens
 
+**Marketing**
+
 | Route | What it is |
 |---|---|
-| `/` | The run, the three outcomes side by side, and the 14-day trend. |
-| `/analysis/[id]` | **The centrepiece.** The reasoning chain, streamed step by step, with the traversed sub-graph, the confidence trace against the threshold, and either the patch or the abstention. |
-| `/trend` | Two weeks of pipeline health with the narrative markers behind each move. |
+| `/` | Landing page — the pitch, the three outcomes, how it works, pricing. |
+| `/signin` | Sign in. The GitHub button is mocked and the page says so. |
+| `/onboarding` | Pick repositories, watch the first scan build the dependency graph. |
+
+**Product** (behind the session guard)
+
+| Route | What it is |
+|---|---|
+| `/app` | Repositories — the fleet, with risk, open findings and autonomous share. |
+| `/app/repos/[repo]` | One repository. `checkout-api` carries the full recorded run; the others show an honest pending state rather than invented findings. |
+| `/app/analysis/[id]` | **The centrepiece.** The reasoning chain, streamed step by step, with the traversed sub-graph, the confidence trace against the threshold, and either the patch or the abstention. |
+| `/app/trend` | Two weeks of pipeline health with the narrative markers behind each move. |
+| `/app/settings` | Policy and team — the action threshold and the per-change-class autonomous grants that the reasoning chain cites. |
+| `/app/billing` | Plan, usage meters, and plan comparison. |
 
 `←` / `→` walk the three outcomes. `⌘⇧R` / `Ctrl+Shift+R` toggles live/replay.
 
 Opens in **light** — `DESIGN.md`'s palette, unmodified. The header button
 switches to dark and the choice persists per browser.
+
+### What is mocked, and what that means
+
+Authentication is a flag in `localStorage` and the route guard is client-side,
+because the site ships as a static export with no server. There is no security
+claim here and none is implied — the session exists so the product *navigates*
+like a SaaS. `SessionProvider` is shaped like a real one (`{ status, user, org }`
+moving through loading → signed-out → signed-in), so replacing it with NextAuth,
+Clerk or a custom JWT means changing that one file, and moving the guard into
+middleware. Screens never read storage directly.
 
 ---
 
@@ -69,7 +92,12 @@ switches to dark and the choice persists per browser.
 ```
 src/
   app/                     routes (App Router, all client-rendered)
+    page.tsx               landing
+    signin/ onboarding/    acquisition funnel
+    app/                   the product, behind the session guard
   components/
+    session/               mocked auth, shaped for a real provider
+    AppSidebar.tsx         product nav, org switcher, the connected fleet
     ReasoningChain.tsx     ← the centrepiece: claim / because / sources, per step
     DependencyGraph.tsx    the sub-graph a finding actually traversed
     ConfidenceTrace.tsx    confidence across the chain vs. the action threshold

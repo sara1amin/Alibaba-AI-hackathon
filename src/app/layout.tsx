@@ -3,18 +3,16 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ModeProvider } from "@/components/ModeProvider";
-import { AppShell } from "@/components/AppShell";
+import { SessionProvider } from "@/components/session/SessionProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "PipelineGuard — CI/CD supply-chain agent",
+  title: "PipelineGuard — the CI/CD agent that shows its work",
   description:
     "An agent that reads your pipeline, shows its reasoning, fixes what is provably safe, escalates what is a judgement call, and refuses what it cannot establish.",
 };
 
-export const viewport: Viewport = {
-  themeColor: "#f5f5f5",
-};
+export const viewport: Viewport = { themeColor: "#f5f5f5" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -33,9 +31,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="min-h-screen font-sans text-body antialiased">
         <ThemeProvider>
-          <ModeProvider>
-            <AppShell>{children}</AppShell>
-          </ModeProvider>
+          <SessionProvider>
+            <ModeProvider>{children}</ModeProvider>
+          </SessionProvider>
         </ThemeProvider>
       </body>
     </html>

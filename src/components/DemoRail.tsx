@@ -27,7 +27,7 @@ export function DemoRail({ findings, activeId }: { findings: Finding[]; activeId
           return (
             <li key={f.id} className="relative">
               <Link
-                href={`/analysis/${f.id}`}
+                href={`/app/analysis/${f.id}`}
                 aria-current={active ? "page" : undefined}
                 className={cn(
                   "flex items-start gap-2.5 rounded-nested px-1.5 py-2 transition-colors",

@@ -18,7 +18,7 @@ export function VerdictCard({ finding, index }: { finding: Finding; index: numbe
 
   return (
     <Link
-      href={`/analysis/${finding.id}`}
+      href={`/app/analysis/${finding.id}`}
       className={cn(
         "group flex flex-col rounded-card border bg-card p-5 shadow-card transition-all duration-200",
         "hover:-translate-y-0.5 hover:shadow-lifted",

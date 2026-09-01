@@ -17,7 +17,7 @@ export default function AnalysisIndex() {
     const first = [...snapshot.findings].sort(
       (a, b) => ORDER.indexOf(a.verdict as never) - ORDER.indexOf(b.verdict as never),
     )[0];
-    if (first) router.replace(`/analysis/${first.id}`);
+    if (first) router.replace(`/app/analysis/${first.id}`);
   }, [snapshot, router]);
 
   return <LoadingState />;

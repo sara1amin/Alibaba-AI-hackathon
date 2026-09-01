@@ -54,8 +54,8 @@ export function AnalysisView({ id }: { id: string }) {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
       const tag = (e.target as HTMLElement)?.tagName;
       if (tag === "INPUT" || tag === "TEXTAREA") return;
-      if (e.key === "ArrowRight" && next) router.push(`/analysis/${next.id}`);
-      if (e.key === "ArrowLeft" && prev) router.push(`/analysis/${prev.id}`);
+      if (e.key === "ArrowRight" && next) router.push(`/app/analysis/${next.id}`);
+      if (e.key === "ArrowLeft" && prev) router.push(`/app/analysis/${prev.id}`);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -156,11 +156,11 @@ export function AnalysisView({ id }: { id: string }) {
                 </p>
               </div>
               {next ? (
-                <Link href={`/analysis/${next.id}`}>
+                <Link href={`/app/analysis/${next.id}`}>
                   <Button variant="primary">{NEXT_CUE[next.verdict] ?? "Next outcome"}</Button>
                 </Link>
               ) : (
-                <Link href="/trend">
+                <Link href="/app/trend">
                   <Button variant="primary">See two weeks of this</Button>
                 </Link>
               )}
