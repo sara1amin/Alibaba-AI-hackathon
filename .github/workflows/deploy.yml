@@ -36,14 +36,20 @@ jobs:
         id: pages
         uses: actions/configure-pages@v5
         with:
-          # Turns Pages on for the repo if it is not enabled yet.
+          # Tries to switch Pages on. Whether this succeeds depends on what the
+          # calling token is allowed to do, so the build below does not rely on
+          # its output — see the base-path note there.
           enablement: true
 
       - name: Build static export
-        # A project site is served from /<repo>, so the app has to be built
-        # knowing its own sub-path. Taken from the repo name, never hard-coded.
+        # A project site is served from /<repo>, not the domain root, so the app
+        # has to be built knowing its own sub-path. Derived from the repository
+        # name rather than taken from the step above, so the build still
+        # produces a correct artifact when Pages has not been enabled yet and
+        # `configure-pages` could not report a base path. Never hard-coded, so
+        # renaming the repository does not silently break every asset URL.
         env:
-          NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
         run: npm run build
 
       - name: Disable Jekyll
